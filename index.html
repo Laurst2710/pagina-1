@@ -1,0 +1,512 @@
+<!-- v1.4 | Index.html (GitHub Pages) | Program: numere impare dintr-un interval | 3 taburi | UI + culori + layout GitHub -->
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark" />
+  <title>Numere impare într-un interval | 3 variante</title>
+
+  <style>
+    /* v1.4 - Stil „GitHub Pages friendly” (responsive, mai aerisit, culori pastel-albastru, accesibilitate) */
+    :root{
+      --bg:#f7faff;
+      --card:#ffffff;
+      --panel:#f1f6ff;
+      --border:#d7e6ff;
+      --text:#0b1220;
+      --muted:#51607a;
+
+      --brand:#2563eb;
+      --brand-2:#1d4ed8;
+      --brand-soft:#e6efff;
+
+      --tab-bg:#ffffff;
+      --tab-text:#0b1220;
+      --tab-active-bg:linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+      --tab-active-text:#ffffff;
+
+      --code-bg:#0b1220;
+      --code-text:#e5e7eb;
+
+      --ok:#16a34a;
+      --warn:#f59e0b;
+
+      --radius:18px;
+      --shadow:0 14px 34px rgba(2, 8, 23, .10);
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#070b14;
+        --card:#0b1220;
+        --panel:#0f1b33;
+        --border:#1b2b52;
+        --text:#e7eefc;
+        --muted:#a5b4d4;
+
+        --brand:#60a5fa;
+        --brand-2:#3b82f6;
+        --brand-soft:#0d1a33;
+
+        --tab-bg:#0b1220;
+        --tab-text:#e7eefc;
+        --tab-active-bg:linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+        --tab-active-text:#071021;
+
+        --code-bg:#050913;
+        --code-text:#e5e7eb;
+
+        --shadow:0 18px 44px rgba(0,0,0,.45);
+      }
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(900px 600px at 10% 10%, rgba(37,99,235,.12), transparent 55%),
+        radial-gradient(900px 600px at 90% 20%, rgba(29,78,216,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    }
+
+    .wrap{
+      max-width:1080px;
+      margin:0 auto;
+      padding:26px 16px 44px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--brand-soft);
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.2px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background:var(--brand);
+      box-shadow:0 0 0 4px rgba(37,99,235,.14);
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.40));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    @media (prefers-color-scheme: dark){
+      .card{
+        background:linear-gradient(180deg, rgba(11,18,32,.78), rgba(11,18,32,.55));
+      }
+    }
+
+    header{
+      padding:18px 18px 8px;
+    }
+
+    h1{
+      margin:0 0 6px 0;
+      font-size:22px;
+      line-height:1.2;
+      letter-spacing:.2px;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:12px 18px 0;
+    }
+
+    .tabBtn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:var(--tab-bg);
+      color:var(--tab-text);
+      border-radius:14px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      line-height:1;
+      user-select:none;
+      transition: transform .05s ease, filter .15s ease, border-color .15s ease;
+    }
+
+    .tabBtn:hover{ filter: brightness(1.02); }
+    .tabBtn:active{ transform: translateY(1px); }
+
+    .tabBtn[aria-selected="true"]{
+      background:var(--tab-active-bg);
+      color:var(--tab-active-text);
+      border-color: transparent;
+    }
+
+    .tabBtn:focus{
+      outline:3px solid rgba(37,99,235,.30);
+      outline-offset:2px;
+    }
+
+    .content{
+      padding:14px 18px 18px;
+    }
+
+    .panel{ display:none; }
+    .panel.active{ display:block; }
+
+    .panel h2{
+      margin:10px 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+
+    .panel p{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      font-weight:650;
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:rgba(255,255,255,.7);
+      margin-bottom:10px;
+    }
+    @media (prefers-color-scheme: dark){
+      .toolbar{ background:rgba(11,18,32,.55); }
+    }
+
+    .label{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width: 160px;
+    }
+    .label b{ font-size:13px; }
+    .label span{ font-size:12px; color:var(--muted); font-weight:750; }
+
+    .btnRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .copyBtn, .rawBtn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.92);
+      color:var(--text);
+      border-radius:14px;
+      padding:9px 12px;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    @media (prefers-color-scheme: dark){
+      .copyBtn, .rawBtn{
+        background:rgba(11,18,32,.72);
+      }
+    }
+
+    .icon{
+      width:10px;height:10px;border-radius:999px;
+      background:var(--brand);
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+      flex:0 0 auto;
+    }
+
+    pre{
+      margin:0;
+      border-radius:16px;
+      padding:14px;
+      overflow:auto;
+      background:var(--code-bg);
+      color:var(--code-text);
+      border:1px solid rgba(255,255,255,.08);
+      font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"JetBrains Mono","Liberation Mono",monospace;
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    code{ white-space:pre; }
+
+    .note{
+      margin:12px 0 0 0;
+      padding:10px 12px;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--border);
+      border-radius:14px;
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      line-height:1.55;
+    }
+    @media (prefers-color-scheme: dark){
+      .note{ background:rgba(11,18,32,.60); }
+    }
+
+    .note strong{ color:var(--brand-2); }
+
+    .foot{
+      padding:12px 18px 18px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:750;
+      line-height:1.4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="badge" title="Versiune">
+        <span class="dot" aria-hidden="true"></span>
+        <span>v1.4 • Index.html (GitHub Pages)</span>
+      </div>
+      <div class="badge" title="Compatibilitate">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Responsive • Copy • Tabs</span>
+      </div>
+    </div>
+
+    <div class="card" data-component="odd-range-tabs">
+      <header>
+        <h1>Program pentru afișarea tuturor numerelor impare dintr-un interval</h1>
+        <p class="sub">3 variante: Python (începători), Python (funcții), C++ (începători).</p>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Taburi limbaje">
+        <button class="tabBtn" role="tab" aria-selected="true"  data-tab="py-beg">Python Începători</button>
+        <button class="tabBtn" role="tab" aria-selected="false" data-tab="py-fn">Python Funcții</button>
+        <button class="tabBtn" role="tab" aria-selected="false" data-tab="cpp-beg">C++ Începători</button>
+      </div>
+
+      <div class="content">
+        <!-- TAB 1 -->
+        <section class="panel active" data-panel="py-beg">
+          <h2>Python Începători</h2>
+          <p>Codul este păstrat identic cu exemplul oferit.</p>
+
+          <div class="toolbar">
+            <div class="label">
+              <b>Cod complet</b>
+              <span>Exact ca în exemplu</span>
+            </div>
+            <div class="btnRow">
+              <button class="copyBtn" type="button" data-action="copy">
+                <span class="icon" aria-hidden="true"></span>
+                Copiază codul
+              </button>
+            </div>
+          </div>
+
+          <pre><code>lower=int(input("Enter the lower limit for the range:"))
+upper=int(input("Enter the upper limit for the range:"))
+for i in range(lower,upper+1):
+    if(i%2!=0):
+        print(i)</code></pre>
+
+          <h2>Program Explanation (tradus)</h2>
+          <p>
+            1. Utilizatorul trebuie să introducă limita superioară și limita inferioară ale intervalului.<br>
+            2. Bucla <b>for</b> parcurge valorile de la limita inferioară până la limita superioară.<br>
+            3. Expresia din instrucțiunea <b>if</b> verifică dacă restul obținut la împărțirea numărului la 2 este egal cu 1 sau nu (folosind operatorul <b>%</b>).<br>
+            4. Dacă restul nu este egal cu 0, numărul este impar și, prin urmare, este afișat.
+          </p>
+
+          <p class="note">
+            Observație (programare corectă): în practică se verifică dacă <b>lower ≤ upper</b>.
+            Dacă utilizatorul introduce limitele invers (<b>lower &gt; upper</b>), se poate fie interschimba valorile,
+            fie afișa un mesaj de eroare. (Codul de mai sus rămâne neschimbat.)
+          </p>
+        </section>
+
+        <!-- TAB 2 -->
+        <section class="panel" data-panel="py-fn">
+          <h2>Python Funcții</h2>
+          <p>Variantă organizată cu funcție.</p>
+
+          <div class="toolbar">
+            <div class="label">
+              <b>Cod complet</b>
+              <span>Funcție + apel</span>
+            </div>
+            <div class="btnRow">
+              <button class="copyBtn" type="button" data-action="copy">
+                <span class="icon" aria-hidden="true"></span>
+                Copiază codul
+              </button>
+            </div>
+          </div>
+
+          <pre><code>def print_odd_numbers_in_range(lower, upper):
+    for i in range(lower, upper + 1):
+        if i % 2 != 0:
+            print(i)
+
+lower = int(input("Enter the lower limit for the range:"))
+upper = int(input("Enter the upper limit for the range:"))
+for i in range(lower,upper+1):
+    if(i%2!=0):
+        print(i)</code></pre>
+
+          <h2>Explicația programului</h2>
+          <p>
+            1. Utilizatorul trebuie să introducă limita superioară și limita inferioară ale intervalului.<br>
+            2. Bucla <b>for</b> parcurge valorile de la limita inferioară până la limita superioară.<br>
+            3. Expresia din instrucțiunea <b>if</b> verifică dacă restul obținut la împărțirea numărului la 2 este diferit de 0 (folosind operatorul <b>%</b>).<br>
+            4. Dacă restul nu este egal cu 0, numărul este impar și este afișat.
+          </p>
+
+          <p class="note">
+            Observație (programare corectă): se verifică dacă <b>lower ≤ upper</b>. Dacă nu, intervalul este invalid și trebuie corectat sau semnalat.
+          </p>
+        </section>
+
+        <!-- TAB 3 -->
+        <section class="panel" data-panel="cpp-beg">
+          <h2>C++ Începători</h2>
+          <p>Variantă C++ echivalentă: citește limitele și afișează numerele impare.</p>
+
+          <div class="toolbar">
+            <div class="label">
+              <b>Cod complet</b>
+              <span>iostream + for + if</span>
+            </div>
+            <div class="btnRow">
+              <button class="copyBtn" type="button" data-action="copy">
+                <span class="icon" aria-hidden="true"></span>
+                Copiază codul
+              </button>
+            </div>
+          </div>
+
+          <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int lower, upper;
+
+    cout &lt;&lt; "Enter the lower limit for the range:";
+    cin &gt;&gt; lower;
+    cout &lt;&lt; "Enter the upper limit for the range:";
+    cin &gt;&gt; upper;
+
+    for (int i = lower; i &lt;= upper; i++) {
+        if (i % 2 != 0) {
+            cout &lt;&lt; i &lt;&lt; "\n";
+        }
+    }
+
+    return 0;
+}</code></pre>
+
+          <h2>Explicația programului</h2>
+          <p>
+            1) Utilizatorul introduce limitele intervalului.<br>
+            2) Bucla parcurge intervalul și verifică imparitatea cu <b>%</b>.<br>
+            3) Numerele impare sunt afișate.
+          </p>
+
+          <p class="note">
+            Observație (programare corectă): se verifică dacă <b>lower ≤ upper</b>. Dacă utilizatorul le introduce invers, se poate corecta sau se poate afișa eroare.
+          </p>
+        </section>
+      </div>
+
+      <div class="foot">
+        Notă: Acesta este un <b>Index.html</b> complet pentru GitHub Pages. Pune fișierul în rădăcina repo-ului și activează Pages (branch + /root).
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // v1.4 - Tab switching + copy code (pe tabul activ)
+    (function () {
+      const root = document.querySelector('[data-component="odd-range-tabs"]');
+      if (!root) return;
+
+      const tabs = Array.from(root.querySelectorAll(".tabBtn"));
+      const panels = Array.from(root.querySelectorAll(".panel"));
+      const copyButtons = Array.from(root.querySelectorAll('[data-action="copy"]'));
+
+      function setActive(tabId) {
+        tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tabId)));
+        panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tabId));
+        copyButtons.forEach(b => b.lastChild.nodeValue = " Copiază codul");
+      }
+
+      tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.tab)));
+
+      function getActiveCodeText() {
+        const code = root.querySelector(".panel.active pre code");
+        return code ? code.textContent : "";
+      }
+
+      copyButtons.forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const txt = getActiveCodeText();
+          if (!txt) return;
+
+          try {
+            await navigator.clipboard.writeText(txt);
+            btn.lastChild.nodeValue = " Copiat!";
+          } catch (e) {
+            const ta = document.createElement("textarea");
+            ta.value = txt;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            btn.lastChild.nodeValue = " Copiat!";
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
