@@ -1,73 +1,67 @@
-<!-- v1.6 | Index.html (GitHub Pages) | Numere impare într-un interval | 3 taburi | cod COMENTAT + albastru indulcit + gradient -->
+<!-- v1.8 | Index.html (GitHub Pages) | Numere impare într-un interval | 3 taburi | fara metadate vizibile | gradient spre bleu deschis | cod comentat -->
 <!DOCTYPE html>
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark" />
-  <title>Numere impare într-un interval | 3 variante</title>
+  <title>Program: Numere impare într-un interval</title>
 
   <style>
-    /* v1.6
-      - UI: albastru mai „soft” + gradient discret
-      - Regula: softul se comentează (CSS/JS + codurile din taburi au comentarii)
-      - Fără badge-uri/topbar (păstrat curat)
+    /* v1.8
+      - Metadate: NU sunt afișate elevului (nu există footer/header tehnic în UI).
+      - UI: gradient spre bleu deschis (pastel).
+      - Cod: comentat (regula "Softul se comentează").
     */
 
     :root{
-      /* Fundal + card (pastel) */
-      --bg-1:#f6fbff;            /* albastru foarte deschis */
-      --bg-2:#f3f6ff;            /* violet-albastru pastel */
-      --bg-3:#f8fbff;            /* aproape alb */
-
-      --card:#ffffff;
-      --panel:#f2f7ff;           /* panel mai luminos */
-      --border:#dbe8ff;
       --text:#0b1220;
       --muted:#51607a;
 
-      /* Brand (indulcit) */
-      --brand:#5aa7ff;           /* albastru soft */
-      --brand-2:#3b82f6;         /* albastru moderat */
-      --brand-soft:#eaf4ff;
+      --card-bg: rgba(255,255,255,.78);
+      --panel:#f2f7ff;
+      --border:#dbe8ff;
 
-      /* Taburi */
+      /* Bleu îndulcit */
+      --bleu-1:#f7fbff;
+      --bleu-2:#eef7ff;
+      --bleu-3:#dff1ff;
+
+      /* Accent (soft) */
+      --accent:#58aafc;
+      --accent-2:#3b82f6;
+
       --tab-bg:#ffffff;
       --tab-text:#0b1220;
+      --tab-active-bg: linear-gradient(180deg, #8fd0ff 0%, #5aaeff 100%);
+      --tab-active-text:#071021;
 
-      /* Gradient tab activ (mai fin, mai deschis) */
-      --tab-active-bg:linear-gradient(180deg, #7fc3ff 0%, #4f9bff 100%);
-      --tab-active-text:#061225;
-
-      /* Cod */
       --code-bg:#0b1220;
       --code-text:#e5e7eb;
 
-      /* Radius & umbră */
       --radius:18px;
       --shadow:0 14px 34px rgba(2, 8, 23, .10);
     }
 
-    /* Dark mode: păstrat echilibrat și lizibil */
     @media (prefers-color-scheme: dark){
       :root{
-        --bg-1:#060a12;
-        --bg-2:#070c16;
-        --bg-3:#080f1b;
-
-        --card:#0b1220;
-        --panel:#0f1b33;
-        --border:#1b2b52;
         --text:#e7eefc;
         --muted:#a5b4d4;
 
-        --brand:#8cc8ff;
-        --brand-2:#60a5fa;
-        --brand-soft:#0d1a33;
+        --card-bg: rgba(11,18,32,.78);
+        --panel:#0f1b33;
+        --border:#1b2b52;
+
+        --bleu-1:#060a12;
+        --bleu-2:#070c16;
+        --bleu-3:#08101f;
+
+        --accent:#8cc8ff;
+        --accent-2:#60a5fa;
 
         --tab-bg:#0b1220;
         --tab-text:#e7eefc;
-        --tab-active-bg:linear-gradient(180deg, #8cc8ff 0%, #60a5fa 100%);
+        --tab-active-bg: linear-gradient(180deg, #8cc8ff 0%, #60a5fa 100%);
         --tab-active-text:#061225;
 
         --code-bg:#050913;
@@ -83,11 +77,11 @@
       margin:0;
       min-height:100vh;
 
-      /* v1.6: gradient discret pe fundal (soft) */
+      /* Gradient spre bleu deschis (fundal elev) */
       background:
-        radial-gradient(900px 600px at 12% 10%, rgba(90,167,255,.16), transparent 55%),
-        radial-gradient(900px 600px at 88% 18%, rgba(59,130,246,.12), transparent 55%),
-        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 45%, var(--bg-3) 100%);
+        radial-gradient(900px 600px at 12% 10%, rgba(88,170,252,.14), transparent 55%),
+        radial-gradient(900px 600px at 88% 18%, rgba(59,130,246,.10), transparent 55%),
+        linear-gradient(180deg, var(--bleu-1) 0%, var(--bleu-2) 45%, var(--bleu-3) 100%);
 
       color:var(--text);
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
@@ -100,18 +94,12 @@
     }
 
     .card{
-      /* v1.6: gradient subtil pe card */
-      background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.45));
+      background: var(--card-bg);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
       backdrop-filter: blur(10px);
-    }
-    @media (prefers-color-scheme: dark){
-      .card{
-        background:linear-gradient(180deg, rgba(11,18,32,.80), rgba(11,18,32,.55));
-      }
     }
 
     header{ padding:18px 18px 8px; }
@@ -162,7 +150,7 @@
     }
 
     .tabBtn:focus{
-      outline:3px solid rgba(90,167,255,.30);
+      outline:3px solid rgba(88,170,252,.28);
       outline-offset:2px;
     }
 
@@ -194,13 +182,13 @@
       border:1px solid var(--border);
       border-radius:14px;
 
-      /* v1.6: toolbar cu gradient ușor */
-      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.62));
+      /* Toolbar cu gradient bleu discret */
+      background:linear-gradient(180deg, rgba(255,255,255,.90), rgba(223,241,255,.65));
       margin-bottom:10px;
     }
     @media (prefers-color-scheme: dark){
       .toolbar{
-        background:linear-gradient(180deg, rgba(11,18,32,.72), rgba(11,18,32,.55));
+        background:linear-gradient(180deg, rgba(11,18,32,.75), rgba(13,26,51,.55));
       }
     }
 
@@ -225,8 +213,8 @@
       appearance:none;
       border:1px solid var(--border);
 
-      /* v1.6: buton cu gradient soft */
-      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(240,247,255,.92));
+      /* Buton „bleu” soft */
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(238,247,255,.92));
 
       color:var(--text);
       border-radius:14px;
@@ -246,8 +234,8 @@
 
     .icon{
       width:10px;height:10px;border-radius:999px;
-      background:var(--brand);
-      box-shadow:0 0 0 4px rgba(90,167,255,.12);
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(88,170,252,.12);
       flex:0 0 auto;
     }
 
@@ -276,22 +264,13 @@
       font-size:13px;
       line-height:1.55;
 
-      /* v1.6: notă cu gradient discret */
-      background:linear-gradient(180deg, rgba(255,255,255,.84), rgba(234,244,255,.70));
+      /* Notă cu gradient bleu deschis */
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(223,241,255,.70));
     }
     @media (prefers-color-scheme: dark){
       .note{
         background:linear-gradient(180deg, rgba(11,18,32,.70), rgba(13,26,51,.55));
       }
-    }
-
-    .foot{
-      padding:12px 18px 18px;
-      border-top:1px solid var(--border);
-      color:var(--muted);
-      font-size:12px;
-      font-weight:750;
-      line-height:1.4;
     }
   </style>
 </head>
@@ -459,15 +438,11 @@ int main() {
           </p>
         </section>
       </div>
-
-      <div class="foot">
-        v1.6 • Index.html pentru GitHub Pages • Gradient + albastru indulcit • Coduri comentate
-      </div>
     </div>
   </div>
 
   <script>
-    // v1.6 - Tab switching + copy code (pe tabul activ)
+    // v1.8 - Tab switching + copy code (pe tabul activ)
     (function () {
       // Găsim componenta principală (cardul cu taburi)
       const root = document.querySelector('[data-component="odd-range-tabs"]');
