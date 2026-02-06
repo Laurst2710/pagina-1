@@ -1,4 +1,4 @@
-<!-- v1.5 | Index.html (GitHub Pages) | Program: numere impare dintr-un interval | 3 taburi | UI + culori + layout (fara badge-uri) -->
+<!-- v1.6 | Index.html (GitHub Pages) | Numere impare într-un interval | 3 taburi | cod COMENTAT + albastru indulcit + gradient -->
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -8,48 +8,67 @@
   <title>Numere impare într-un interval | 3 variante</title>
 
   <style>
-    /* v1.5 - Stil „GitHub Pages friendly” (responsive, culori pastel-albastru, fara topbar badge-uri) */
+    /* v1.6
+      - UI: albastru mai „soft” + gradient discret
+      - Regula: softul se comentează (CSS/JS + codurile din taburi au comentarii)
+      - Fără badge-uri/topbar (păstrat curat)
+    */
+
     :root{
-      --bg:#f7faff;
+      /* Fundal + card (pastel) */
+      --bg-1:#f6fbff;            /* albastru foarte deschis */
+      --bg-2:#f3f6ff;            /* violet-albastru pastel */
+      --bg-3:#f8fbff;            /* aproape alb */
+
       --card:#ffffff;
-      --panel:#f1f6ff;
-      --border:#d7e6ff;
+      --panel:#f2f7ff;           /* panel mai luminos */
+      --border:#dbe8ff;
       --text:#0b1220;
       --muted:#51607a;
 
-      --brand:#2563eb;
-      --brand-2:#1d4ed8;
-      --brand-soft:#e6efff;
+      /* Brand (indulcit) */
+      --brand:#5aa7ff;           /* albastru soft */
+      --brand-2:#3b82f6;         /* albastru moderat */
+      --brand-soft:#eaf4ff;
 
+      /* Taburi */
       --tab-bg:#ffffff;
       --tab-text:#0b1220;
-      --tab-active-bg:linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-      --tab-active-text:#ffffff;
 
+      /* Gradient tab activ (mai fin, mai deschis) */
+      --tab-active-bg:linear-gradient(180deg, #7fc3ff 0%, #4f9bff 100%);
+      --tab-active-text:#061225;
+
+      /* Cod */
       --code-bg:#0b1220;
       --code-text:#e5e7eb;
 
+      /* Radius & umbră */
       --radius:18px;
       --shadow:0 14px 34px rgba(2, 8, 23, .10);
     }
 
+    /* Dark mode: păstrat echilibrat și lizibil */
     @media (prefers-color-scheme: dark){
       :root{
-        --bg:#070b14;
+        --bg-1:#060a12;
+        --bg-2:#070c16;
+        --bg-3:#080f1b;
+
         --card:#0b1220;
         --panel:#0f1b33;
         --border:#1b2b52;
         --text:#e7eefc;
         --muted:#a5b4d4;
 
-        --brand:#60a5fa;
-        --brand-2:#3b82f6;
+        --brand:#8cc8ff;
+        --brand-2:#60a5fa;
         --brand-soft:#0d1a33;
 
         --tab-bg:#0b1220;
         --tab-text:#e7eefc;
-        --tab-active-bg:linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
-        --tab-active-text:#071021;
+        --tab-active-bg:linear-gradient(180deg, #8cc8ff 0%, #60a5fa 100%);
+        --tab-active-text:#061225;
 
         --code-bg:#050913;
         --code-text:#e5e7eb;
@@ -63,10 +82,13 @@
     body{
       margin:0;
       min-height:100vh;
+
+      /* v1.6: gradient discret pe fundal (soft) */
       background:
-        radial-gradient(900px 600px at 10% 10%, rgba(37,99,235,.12), transparent 55%),
-        radial-gradient(900px 600px at 90% 20%, rgba(29,78,216,.10), transparent 55%),
-        var(--bg);
+        radial-gradient(900px 600px at 12% 10%, rgba(90,167,255,.16), transparent 55%),
+        radial-gradient(900px 600px at 88% 18%, rgba(59,130,246,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 45%, var(--bg-3) 100%);
+
       color:var(--text);
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
     }
@@ -78,7 +100,8 @@
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.40));
+      /* v1.6: gradient subtil pe card */
+      background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.45));
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
@@ -87,13 +110,11 @@
     }
     @media (prefers-color-scheme: dark){
       .card{
-        background:linear-gradient(180deg, rgba(11,18,32,.78), rgba(11,18,32,.55));
+        background:linear-gradient(180deg, rgba(11,18,32,.80), rgba(11,18,32,.55));
       }
     }
 
-    header{
-      padding:18px 18px 8px;
-    }
+    header{ padding:18px 18px 8px; }
 
     h1{
       margin:0 0 6px 0;
@@ -141,13 +162,11 @@
     }
 
     .tabBtn:focus{
-      outline:3px solid rgba(37,99,235,.30);
+      outline:3px solid rgba(90,167,255,.30);
       outline-offset:2px;
     }
 
-    .content{
-      padding:14px 18px 18px;
-    }
+    .content{ padding:14px 18px 18px; }
 
     .panel{ display:none; }
     .panel.active{ display:block; }
@@ -174,11 +193,15 @@
       padding:10px 12px;
       border:1px solid var(--border);
       border-radius:14px;
-      background:rgba(255,255,255,.7);
+
+      /* v1.6: toolbar cu gradient ușor */
+      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.62));
       margin-bottom:10px;
     }
     @media (prefers-color-scheme: dark){
-      .toolbar{ background:rgba(11,18,32,.55); }
+      .toolbar{
+        background:linear-gradient(180deg, rgba(11,18,32,.72), rgba(11,18,32,.55));
+      }
     }
 
     .label{
@@ -201,7 +224,10 @@
     .copyBtn{
       appearance:none;
       border:1px solid var(--border);
-      background:rgba(255,255,255,.92);
+
+      /* v1.6: buton cu gradient soft */
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(240,247,255,.92));
+
       color:var(--text);
       border-radius:14px;
       padding:9px 12px;
@@ -214,14 +240,14 @@
     }
     @media (prefers-color-scheme: dark){
       .copyBtn{
-        background:rgba(11,18,32,.72);
+        background:linear-gradient(180deg, rgba(11,18,32,.80), rgba(13,26,51,.68));
       }
     }
 
     .icon{
       width:10px;height:10px;border-radius:999px;
       background:var(--brand);
-      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+      box-shadow:0 0 0 4px rgba(90,167,255,.12);
       flex:0 0 auto;
     }
 
@@ -243,19 +269,21 @@
     .note{
       margin:12px 0 0 0;
       padding:10px 12px;
-      background:rgba(255,255,255,.75);
       border:1px solid var(--border);
       border-radius:14px;
       color:var(--text);
       font-weight:700;
       font-size:13px;
       line-height:1.55;
+
+      /* v1.6: notă cu gradient discret */
+      background:linear-gradient(180deg, rgba(255,255,255,.84), rgba(234,244,255,.70));
     }
     @media (prefers-color-scheme: dark){
-      .note{ background:rgba(11,18,32,.60); }
+      .note{
+        background:linear-gradient(180deg, rgba(11,18,32,.70), rgba(13,26,51,.55));
+      }
     }
-
-    .note strong{ color:var(--brand-2); }
 
     .foot{
       padding:12px 18px 18px;
@@ -286,12 +314,12 @@
         <!-- TAB 1 -->
         <section class="panel active" data-panel="py-beg">
           <h2>Python Începători</h2>
-          <p>Codul este păstrat identic cu exemplul oferit.</p>
+          <p>Cod comentat (pentru claritate didactică).</p>
 
           <div class="toolbar">
             <div class="label">
               <b>Cod complet</b>
-              <span>Exact ca în exemplu</span>
+              <span>Python (începători)</span>
             </div>
             <div class="btnRow">
               <button class="copyBtn" type="button" data-action="copy">
@@ -301,31 +329,38 @@
             </div>
           </div>
 
-          <pre><code>lower=int(input("Enter the lower limit for the range:"))
-upper=int(input("Enter the upper limit for the range:"))
-for i in range(lower,upper+1):
-    if(i%2!=0):
+          <pre><code># Citim limita inferioară a intervalului (lower)
+lower = int(input("Enter the lower limit for the range:"))
+
+# Citim limita superioară a intervalului (upper)
+upper = int(input("Enter the upper limit for the range:"))
+
+# Parcurgem toate numerele din intervalul [lower, upper]
+for i in range(lower, upper + 1):
+    # Dacă numărul nu se împarte exact la 2, atunci este impar
+    if i % 2 != 0:
+        # Afișăm numărul impar
         print(i)</code></pre>
 
           <h2>Program Explanation (tradus)</h2>
           <p>
             1. Utilizatorul trebuie să introducă limita superioară și limita inferioară ale intervalului.<br>
             2. Bucla <b>for</b> parcurge valorile de la limita inferioară până la limita superioară.<br>
-            3. Expresia din instrucțiunea <b>if</b> verifică dacă restul obținut la împărțirea numărului la 2 este egal cu 1 sau nu (folosind operatorul <b>%</b>).<br>
-            4. Dacă restul nu este egal cu 0, numărul este impar și, prin urmare, este afișat.
+            3. Expresia din instrucțiunea <b>if</b> verifică imparitatea folosind operatorul <b>%</b> (rest la împărțirea la 2).<br>
+            4. Dacă restul nu este 0, numărul este impar și este afișat.
           </p>
 
           <p class="note">
             Observație (programare corectă): în practică se verifică dacă <b>lower ≤ upper</b>.
-            Dacă utilizatorul introduce limitele invers (<b>lower &gt; upper</b>), se poate fie interschimba valorile,
-            fie afișa un mesaj de eroare. (Codul de mai sus rămâne neschimbat.)
+            Dacă utilizatorul introduce limitele invers (<b>lower &gt; upper</b>), se poate interschimba valorile
+            sau se poate afișa un mesaj de eroare.
           </p>
         </section>
 
         <!-- TAB 2 -->
         <section class="panel" data-panel="py-fn">
           <h2>Python Funcții</h2>
-          <p>Variantă organizată cu funcție.</p>
+          <p>Variantă comentată: funcție + apel.</p>
 
           <div class="toolbar">
             <div class="label">
@@ -340,23 +375,27 @@ for i in range(lower,upper+1):
             </div>
           </div>
 
-          <pre><code>def print_odd_numbers_in_range(lower, upper):
+          <pre><code># Funcție care afișează toate numerele impare din intervalul [lower, upper]
+def print_odd_numbers_in_range(lower, upper):
+    # Parcurgem toate numerele din interval
     for i in range(lower, upper + 1):
+        # Verificăm dacă i este impar (rest diferit de 0 la împărțirea la 2)
         if i % 2 != 0:
+            # Afișăm numărul impar
             print(i)
 
+# Citim limita inferioară și limita superioară
 lower = int(input("Enter the lower limit for the range:"))
 upper = int(input("Enter the upper limit for the range:"))
-for i in range(lower,upper+1):
-    if(i%2!=0):
-        print(i)</code></pre>
+
+# Apelăm funcția pentru a afișa numerele impare din interval
+print_odd_numbers_in_range(lower, upper)</code></pre>
 
           <h2>Explicația programului</h2>
           <p>
-            1. Utilizatorul trebuie să introducă limita superioară și limita inferioară ale intervalului.<br>
-            2. Bucla <b>for</b> parcurge valorile de la limita inferioară până la limita superioară.<br>
-            3. Expresia din instrucțiunea <b>if</b> verifică dacă restul obținut la împărțirea numărului la 2 este diferit de 0 (folosind operatorul <b>%</b>).<br>
-            4. Dacă restul nu este egal cu 0, numărul este impar și este afișat.
+            1. Se citește intervalul <b>[lower, upper]</b>.<br>
+            2. Funcția parcurge intervalul și verifică fiecare număr cu <b>%</b>.<br>
+            3. Numerele impare sunt afișate.
           </p>
 
           <p class="note">
@@ -367,7 +406,7 @@ for i in range(lower,upper+1):
         <!-- TAB 3 -->
         <section class="panel" data-panel="cpp-beg">
           <h2>C++ Începători</h2>
-          <p>Variantă C++ echivalentă: citește limitele și afișează numerele impare.</p>
+          <p>Variantă comentată: citește limitele și afișează numerele impare.</p>
 
           <div class="toolbar">
             <div class="label">
@@ -386,14 +425,20 @@ for i in range(lower,upper+1):
 using namespace std;
 
 int main() {
+    // Declarăm limitele intervalului
     int lower, upper;
 
+    // Citim limita inferioară
     cout &lt;&lt; "Enter the lower limit for the range:";
     cin &gt;&gt; lower;
+
+    // Citim limita superioară
     cout &lt;&lt; "Enter the upper limit for the range:";
     cin &gt;&gt; upper;
 
+    // Parcurgem intervalul [lower, upper]
     for (int i = lower; i &lt;= upper; i++) {
+        // Dacă i este impar, îl afișăm
         if (i % 2 != 0) {
             cout &lt;&lt; i &lt;&lt; "\n";
         }
@@ -404,7 +449,7 @@ int main() {
 
           <h2>Explicația programului</h2>
           <p>
-            1) Utilizatorul introduce limitele intervalului.<br>
+            1) Se citesc limitele intervalului.<br>
             2) Bucla parcurge intervalul și verifică imparitatea cu <b>%</b>.<br>
             3) Numerele impare sunt afișate.
           </p>
@@ -416,43 +461,58 @@ int main() {
       </div>
 
       <div class="foot">
-        v1.5 • Index.html pentru GitHub Pages (root). Tabs + Copy păstrate. Badge-urile au fost eliminate.
+        v1.6 • Index.html pentru GitHub Pages • Gradient + albastru indulcit • Coduri comentate
       </div>
     </div>
   </div>
 
   <script>
-    // v1.5 - Tab switching + copy code (pe tabul activ)
+    // v1.6 - Tab switching + copy code (pe tabul activ)
     (function () {
+      // Găsim componenta principală (cardul cu taburi)
       const root = document.querySelector('[data-component="odd-range-tabs"]');
-      if (!root) return;
+      if (!root) return; // Dacă nu există, ieșim
 
+      // Colectăm butoanele de tab și panourile
       const tabs = Array.from(root.querySelectorAll(".tabBtn"));
       const panels = Array.from(root.querySelectorAll(".panel"));
+
+      // Colectăm toate butoanele de copiere
       const copyButtons = Array.from(root.querySelectorAll('[data-action="copy"]'));
 
+      // Activează tabul cerut și ascunde celelalte panouri
       function setActive(tabId) {
+        // Setăm aria-selected pentru accesibilitate
         tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tabId)));
+
+        // Afișăm doar panoul activ
         panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tabId));
+
+        // Reset text buton copiere
         copyButtons.forEach(b => b.lastChild.nodeValue = " Copiază codul");
       }
 
+      // Click pe tab -> setActive
       tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.tab)));
 
+      // Returnează textul codului din panoul activ
       function getActiveCodeText() {
         const code = root.querySelector(".panel.active pre code");
         return code ? code.textContent : "";
       }
 
+      // Copiere în clipboard pentru tabul activ
       copyButtons.forEach(btn => {
         btn.addEventListener("click", async () => {
           const txt = getActiveCodeText();
           if (!txt) return;
 
           try {
+            // Clipboard API modern
             await navigator.clipboard.writeText(txt);
             btn.lastChild.nodeValue = " Copiat!";
           } catch (e) {
+            // Fallback pentru browsere mai vechi
             const ta = document.createElement("textarea");
             ta.value = txt;
             document.body.appendChild(ta);
