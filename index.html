@@ -1,4 +1,4 @@
-<!-- v1.4 | Index.html (GitHub Pages) | Program: numere impare dintr-un interval | 3 taburi | UI + culori + layout GitHub -->
+<!-- v1.5 | Index.html (GitHub Pages) | Program: numere impare dintr-un interval | 3 taburi | UI + culori + layout (fara badge-uri) -->
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -8,7 +8,7 @@
   <title>Numere impare într-un interval | 3 variante</title>
 
   <style>
-    /* v1.4 - Stil „GitHub Pages friendly” (responsive, mai aerisit, culori pastel-albastru, accesibilitate) */
+    /* v1.5 - Stil „GitHub Pages friendly” (responsive, culori pastel-albastru, fara topbar badge-uri) */
     :root{
       --bg:#f7faff;
       --card:#ffffff;
@@ -28,9 +28,6 @@
 
       --code-bg:#0b1220;
       --code-text:#e5e7eb;
-
-      --ok:#16a34a;
-      --warn:#f59e0b;
 
       --radius:18px;
       --shadow:0 14px 34px rgba(2, 8, 23, .10);
@@ -78,35 +75,6 @@
       max-width:1080px;
       margin:0 auto;
       padding:26px 16px 44px;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:14px;
-    }
-
-    .badge{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:999px;
-      background:var(--brand-soft);
-      border:1px solid var(--border);
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
-      letter-spacing:.2px;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .dot{
-      width:9px;height:9px;border-radius:999px;
-      background:var(--brand);
-      box-shadow:0 0 0 4px rgba(37,99,235,.14);
     }
 
     .card{
@@ -230,7 +198,7 @@
       justify-content:flex-end;
     }
 
-    .copyBtn, .rawBtn{
+    .copyBtn{
       appearance:none;
       border:1px solid var(--border);
       background:rgba(255,255,255,.92);
@@ -245,7 +213,7 @@
       gap:8px;
     }
     @media (prefers-color-scheme: dark){
-      .copyBtn, .rawBtn{
+      .copyBtn{
         background:rgba(11,18,32,.72);
       }
     }
@@ -302,17 +270,6 @@
 
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <div class="badge" title="Versiune">
-        <span class="dot" aria-hidden="true"></span>
-        <span>v1.4 • Index.html (GitHub Pages)</span>
-      </div>
-      <div class="badge" title="Compatibilitate">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Responsive • Copy • Tabs</span>
-      </div>
-    </div>
-
     <div class="card" data-component="odd-range-tabs">
       <header>
         <h1>Program pentru afișarea tuturor numerelor impare dintr-un interval</h1>
@@ -459,13 +416,13 @@ int main() {
       </div>
 
       <div class="foot">
-        Notă: Acesta este un <b>Index.html</b> complet pentru GitHub Pages. Pune fișierul în rădăcina repo-ului și activează Pages (branch + /root).
+        v1.5 • Index.html pentru GitHub Pages (root). Tabs + Copy păstrate. Badge-urile au fost eliminate.
       </div>
     </div>
   </div>
 
   <script>
-    // v1.4 - Tab switching + copy code (pe tabul activ)
+    // v1.5 - Tab switching + copy code (pe tabul activ)
     (function () {
       const root = document.querySelector('[data-component="odd-range-tabs"]');
       if (!root) return;
